@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:habit_tracker/app_model.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/app_bar.dart';
 
@@ -11,7 +13,8 @@ import 'package:habit_tracker/pages/user.dart';
 import 'package:habit_tracker/models/habit.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => AppModel(), child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -23,21 +26,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int _selectedItem = 0;
-  late final List<Habit> habits = [];
+
   late TabController _controller;
   late List<Widget> _pages;
-
-  void addHabit(Habit habit) {
-    setState(() {
-      habits.add(habit);
-    });
-  }
 
   @override
   void initState() {
     _pages = [
-      HomePage(habits: habits),
-      HabitsPage(addHabitFunction: addHabit),
+      HomePage(),
+      HabitsPage(),
       ProgressPage(),
       UserPage(),
     ];

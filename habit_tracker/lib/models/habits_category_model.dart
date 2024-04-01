@@ -29,31 +29,25 @@ class HabitsCategoryModel {
       Habit(
           name: "Study",
           description: "Description",
-          imagePath: "assets/icons/house.svg"),
+          imagePath:
+              "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
       Habit(
-          name: "Bla bla bla",
+          name: "Learn language",
           description: "Description",
-          imagePath: "assets/icons/house.svg")
-    ]));
-    categories.add(HabitsCategoryModel(title: "Health", habits: [
-      Habit(
-          name: "Regular exercise",
-          description: "Description",
-          imagePath: "assets/icons/house.svg"),
-      Habit(
-          name: "Yoga",
-          description: "Description",
-          imagePath: "assets/icons/house.svg")
+          imagePath:
+              "https://images.unsplash.com/photo-1543165796-5426273eaab3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
     ]));
     categories.add(HabitsCategoryModel(title: "Food", habits: [
       Habit(
-          name: "Regular exercise",
+          name: "Eat healthy",
           description: "Description",
-          imagePath: "assets/icons/house.svg"),
+          imagePath:
+              "https://plus.unsplash.com/premium_photo-1666275003927-47bea5a1fb0b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
       Habit(
-          name: "Yoga",
+          name: "Drink water",
           description: "Description",
-          imagePath: "assets/icons/house.svg")
+          imagePath:
+              "https://images.unsplash.com/photo-1602904761432-f9ad96133982?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
     ]));
 
     return categories;

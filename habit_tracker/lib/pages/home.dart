@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/models/habit.dart';
+import 'package:habit_tracker/app_model.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  final List<Habit> habits;
-  const HomePage({super.key, required this.habits});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (habits == null || habits!.isEmpty) {
+    final appModel = Provider.of<AppModel>(context);
+    if (appModel.habits.isEmpty) {
       // If habits is null or empty, return an empty SizedBox
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Container(
           height: 100,
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
           child: ListView.separated(
-            itemCount: habits.length,
-            separatorBuilder: (context, index) => SizedBox(height: 20.0),
+            itemCount: appModel.habits.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 20.0),
             itemBuilder: (context, index) {
               return Container(
                 height: 100,
-                padding: EdgeInsets.all(10.0),
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
@@ -35,7 +36,7 @@ class HomePage extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  habits[index].name,
+                  appModel.habits[index].name,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),

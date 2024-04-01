@@ -18,4 +18,8 @@ class AppModel extends ChangeNotifier {
     _habits.remove(h);
     notifyListeners();
   }
+
+  void deleteHabits() {
+    _habits.clear();
+  }
 }

@@ -10,8 +10,6 @@ import 'package:habit_tracker/pages/habits.dart';
 import 'package:habit_tracker/pages/progress.dart';
 import 'package:habit_tracker/pages/user.dart';
 
-import 'package:habit_tracker/models/habit.dart';
-
 void main() {
   runApp(ChangeNotifierProvider(
       create: (context) => AppModel(), child: const MyApp()));
@@ -33,10 +31,10 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _pages = [
-      HomePage(),
-      HabitsPage(),
-      ProgressPage(),
-      UserPage(),
+      const HomePage(),
+      const HabitsPage(),
+      const ProgressPage(),
+      const UserPage(),
     ];
     super.initState();
     _controller = TabController(vsync: this, length: _pages.length);
@@ -90,7 +88,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   "assets/icons/house.svg",
                   height: 30.0,
                   color: _selectedItem == 0
-                      ? Color.fromARGB(255, 188, 232, 55)
+                      ? const Color.fromARGB(255, 188, 232, 55)
                       : Colors.black,
                 ),
                 label: "Home",
@@ -100,7 +98,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   "assets/icons/compass.svg",
                   height: 30.0,
                   color: _selectedItem == 1
-                      ? Color.fromARGB(255, 188, 232, 55)
+                      ? const Color.fromARGB(255, 188, 232, 55)
                       : Colors.black,
                 ),
                 label: "Habits",
@@ -110,7 +108,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   "assets/icons/bars-progress.svg",
                   height: 30.0,
                   color: _selectedItem == 2
-                      ? Color.fromARGB(255, 188, 232, 55)
+                      ? const Color.fromARGB(255, 188, 232, 55)
                       : Colors.black,
                 ),
                 label: "Progress",
@@ -120,7 +118,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   "assets/icons/user.svg",
                   height: 30.0,
                   color: _selectedItem == 3
-                      ? Color.fromARGB(255, 188, 232, 55)
+                      ? const Color.fromARGB(255, 188, 232, 55)
                       : Colors.black,
                 ),
                 label: "Profile",

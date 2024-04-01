@@ -10,7 +10,9 @@ class HomePage extends StatelessWidget {
     final appModel = Provider.of<AppModel>(context);
     if (appModel.habits.isEmpty) {
       // If habits is null or empty, return an empty SizedBox
-      return const SizedBox.shrink();
+      return const Center(
+        child: Text("You haven't added habits yet..."),
+      );
     }
     return Expanded(
       child: Padding(

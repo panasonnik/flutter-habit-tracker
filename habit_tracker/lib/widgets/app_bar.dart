@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:habit_tracker/app_model.dart';
+import 'package:provider/provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key});
+  const MyAppBar({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
+    final appModel = Provider.of<AppModel>(context);
     return AppBar(
       title: const Text(
         "TrackHabits",
@@ -18,16 +20,25 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       actions: [
         Container(
-          margin: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.only(right: 10.0),
           alignment: Alignment.center,
-          width: 40.0,
-          decoration: const BoxDecoration(
-            color: Color(0xfff5f5f5),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          child: SvgPicture.asset(
-            "assets/icons/plus.svg",
-            width: 20.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Transform.scale(
+                scale: 0.8, // Adjusted scale to make the switch smaller
+                child: Switch(
+                  value: appModel.darkTheme,
+                  onChanged: (value) {
+                    appModel.darkTheme = value;
+                  },
+                  activeColor: Colors.black87,
+                  activeTrackColor: const Color.fromARGB(255, 107, 127, 137),
+                  inactiveThumbColor: Colors.grey,
+                  inactiveTrackColor: Colors.grey[300],
+                ),
+              ),
+            ],
           ),
         ),
       ],

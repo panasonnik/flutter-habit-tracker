@@ -10,6 +10,9 @@ import 'package:habit_tracker/pages/habits.dart';
 import 'package:habit_tracker/pages/progress.dart';
 import 'package:habit_tracker/pages/user.dart';
 
+import 'themes/dark.dart';
+import 'themes/light.dart';
+
 void main() {
   runApp(ChangeNotifierProvider(
       create: (context) => AppModel(), child: const MyApp()));
@@ -63,8 +66,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Montserrat',
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // useMaterial3: true,
+        brightness: Provider.of<AppModel>(context).darkTheme
+            ? Brightness.dark
+            : Brightness.light,
       ),
       home: Scaffold(
         appBar: const MyAppBar(),

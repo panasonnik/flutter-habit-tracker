@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/app_model.dart';
-import 'package:habit_tracker/models/habits_category_model.dart';
+import 'package:habit_tracker/models/habit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:provider/provider.dart';
 
-class Habit extends StatelessWidget {
-  const Habit({
+class HabitWidget extends StatelessWidget {
+  const HabitWidget({
     super.key,
-    required this.categories,
-    required this.selectedCategoryIndex,
-    this.isHabitPressedList,
+    required this.pathToHabit,
+    required this.isHabitPressedList,
     this.index = 0,
+    this.action = "Add",
   });
 
-  final List<HabitsCategoryModel> categories;
-  final int selectedCategoryIndex;
-  final List<bool>? isHabitPressedList;
+  final Habit pathToHabit;
+  final List<bool> isHabitPressedList;
   final int index;
+  final String action;
 
   @override
   Widget build(BuildContext context) {
@@ -40,38 +40,40 @@ class Habit extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      categories[selectedCategoryIndex].habits[index].name,
+                      pathToHabit.name,
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      categories[selectedCategoryIndex]
-                          .habits[index]
-                          .description,
+                      pathToHabit.description,
                       style: const TextStyle(fontSize: 16.0),
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     ElevatedButton(
-                      onPressed: () {
-                        appModel.addHabit(
-                            categories[selectedCategoryIndex].habits[index]);
-                        // Toggle the pressed state of the current habit button
-                        isHabitPressedList![index] =
-                            !isHabitPressedList![index];
-                      },
+                      onPressed: isHabitPressedList[index]
+                          ? null // Button is disabled if already pressed
+                          : () {
+                              if (action == "Delete") {
+                                appModel.removeHabit(pathToHabit);
+                              } else {
+                                appModel.addHabit(pathToHabit);
+                              }
+
+                              isHabitPressedList[index] = true;
+                            },
                       style: ButtonStyle(
                         fixedSize: MaterialStateProperty.all(
-                          Size(100.0, 10.0),
+                          const Size(100.0, 10.0),
                         ),
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
                       ),
-                      child: isHabitPressedList![index]
+                      child: isHabitPressedList[index] && action == "Add"
                           ? SvgPicture.asset(
                               "assets/icons/check.svg",
                               height: 24.0,
                             )
-                          : const Text("Add"),
+                          : Text(action),
                     ),
                   ],
                 ),
@@ -79,8 +81,7 @@ class Habit extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(14.0),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      categories[selectedCategoryIndex].habits[index].imagePath,
+                  imageUrl: pathToHabit.imagePath,
                   width: 150.0,
                   height: 150.0,
                   fit: BoxFit.cover,

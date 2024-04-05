@@ -13,6 +13,7 @@ class HabitsPage extends StatefulWidget {
 class _HabitsPageState extends State<HabitsPage> {
   late List<HabitsCategoryModel> categories;
   int selectedCategoryIndex = 0;
+  Map<int, List<bool>?> isHabitPressedMap = {};
 
   void _getCategories() {
     categories = HabitsCategoryModel.getCategories();
@@ -21,10 +22,14 @@ class _HabitsPageState extends State<HabitsPage> {
   @override
   Widget build(BuildContext context) {
     _getCategories();
-    List<bool> isHabitPressedList = List.generate(
-      categories[selectedCategoryIndex].habits.length,
-      (index) => false,
-    );
+
+    // Initialize pressed state list for the current category if it doesn't exist
+    if (!isHabitPressedMap.containsKey(selectedCategoryIndex)) {
+      isHabitPressedMap[selectedCategoryIndex] = List.generate(
+        categories[selectedCategoryIndex].habits.length,
+        (index) => false,
+      );
+    }
     return Column(
       children: [
         const SizedBox(height: 10.0),
@@ -76,10 +81,11 @@ class _HabitsPageState extends State<HabitsPage> {
             itemCount: categories[selectedCategoryIndex].habits.length,
             separatorBuilder: (context, index) => const SizedBox(height: 20.0),
             itemBuilder: (context, index) {
-              return Habit(
-                categories: categories,
-                selectedCategoryIndex: selectedCategoryIndex,
-                isHabitPressedList: isHabitPressedList,
+              return HabitWidget(
+                pathToHabit: categories[selectedCategoryIndex].habits[index],
+                isHabitPressedList: isHabitPressedMap[selectedCategoryIndex] ??
+                    List.filled(
+                        categories[selectedCategoryIndex].habits.length, false),
                 index: index,
               );
             },

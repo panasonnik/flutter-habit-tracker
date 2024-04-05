@@ -40,9 +40,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     _controller = TabController(vsync: this, length: _pages.length);
 
     _controller.addListener(() {
-      setState(() {
-        _selectedItem = _controller.index;
-      });
+      _selectedItem = _controller.index;
     });
   }
 

@@ -11,14 +11,14 @@ class UserPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'User Page',
           ),
-          SizedBox(height: 30.0),
+          const SizedBox(height: 30.0),
           FloatingActionButton.extended(
               onPressed:
                   Provider.of<AppModel>(context, listen: false).deleteHabits,
-              label: Text("Delete all data"))
+              label: const Text("Delete all data"))
         ],
       ),
     );

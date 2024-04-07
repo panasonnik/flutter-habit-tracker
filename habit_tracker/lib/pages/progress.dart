@@ -3,7 +3,7 @@ import 'package:habit_tracker/http_request.dart';
 import 'package:habit_tracker/models/todo.dart';
 
 class ProgressPage extends StatefulWidget {
-  const ProgressPage({Key? key}) : super(key: key);
+  const ProgressPage({super.key});
 
   @override
   State<ProgressPage> createState() => _ProgressPageState();

@@ -14,7 +14,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Text(
         "TrackHabits",
-        style: TextStyle(fontWeight: FontWeight.w600),
+        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
       ),
       backgroundColor: Colors.white,
       elevation: 0.0,
@@ -32,8 +32,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onChanged: (value) {
                     appModel.darkTheme = value;
                   },
-                  activeColor: Colors.black87,
-                  activeTrackColor: const Color.fromARGB(255, 107, 127, 137),
+                  activeColor: Colors.black54,
+                  activeTrackColor: Colors.black45,
                   inactiveThumbColor: Colors.grey,
                   inactiveTrackColor: Colors.grey[300],
                 ),

@@ -29,7 +29,9 @@ class HabitWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            border: Border.all(color: Colors.black, width: 2.0),
+            border: Border.all(
+                color: appModel.darkTheme ? Colors.white : Colors.black,
+                width: 2.0),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,15 +67,17 @@ class HabitWidget extends StatelessWidget {
                         fixedSize: MaterialStateProperty.all(
                           const Size(100.0, 10.0),
                         ),
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
+                        backgroundColor: appModel.darkTheme
+                            ? MaterialStateProperty.all(Colors.white)
+                            : MaterialStateProperty.all(Colors.black12),
                       ),
                       child: isHabitPressedList[index] && action == "Add"
                           ? SvgPicture.asset(
                               "assets/icons/check.svg",
                               height: 24.0,
                             )
-                          : Text(action),
+                          : Text(action,
+                              style: const TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),

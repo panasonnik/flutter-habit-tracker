@@ -10,12 +10,11 @@ import 'package:habit_tracker/pages/habits.dart';
 import 'package:habit_tracker/pages/progress.dart';
 import 'package:habit_tracker/pages/user.dart';
 
-import 'themes/dark.dart';
-import 'themes/light.dart';
-
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => AppModel(), child: const MyApp()));
+    create: (context) => AppModel(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -33,11 +32,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _pages = [
-      const HomePage(),
-      const HabitsPage(),
-      const ProgressPage(),
-      const UserPage(),
+    _pages = const [
+      HomePage(),
+      HabitsPage(),
+      ProgressPage(),
+      UserPage(),
     ];
     super.initState();
     _controller = TabController(vsync: this, length: _pages.length);
@@ -62,13 +61,12 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Provider.of<AppModel>(context).darkTheme;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Montserrat',
-        brightness: Provider.of<AppModel>(context).darkTheme
-            ? Brightness.dark
-            : Brightness.light,
+        brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       ),
       home: Scaffold(
         appBar: const MyAppBar(),
@@ -85,49 +83,33 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           height: 80.0,
           child: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/house.svg",
-                  height: 30.0,
-                  color: _selectedItem == 0
-                      ? const Color.fromARGB(255, 188, 232, 55)
-                      : Colors.black,
-                ),
+              _buildBottomNavigationBarItem(
+                iconPath: "assets/icons/house.svg",
                 label: "Home",
+                index: 0,
+                isDarkTheme: isDarkTheme,
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/compass.svg",
-                  height: 30.0,
-                  color: _selectedItem == 1
-                      ? const Color.fromARGB(255, 188, 232, 55)
-                      : Colors.black,
-                ),
+              _buildBottomNavigationBarItem(
+                iconPath: "assets/icons/compass.svg",
                 label: "Habits",
+                index: 1,
+                isDarkTheme: isDarkTheme,
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/bars-progress.svg",
-                  height: 30.0,
-                  color: _selectedItem == 2
-                      ? const Color.fromARGB(255, 188, 232, 55)
-                      : Colors.black,
-                ),
+              _buildBottomNavigationBarItem(
+                iconPath: "assets/icons/bars-progress.svg",
                 label: "Progress",
+                index: 2,
+                isDarkTheme: isDarkTheme,
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/user.svg",
-                  height: 30.0,
-                  color: _selectedItem == 3
-                      ? const Color.fromARGB(255, 188, 232, 55)
-                      : Colors.black,
-                ),
+              _buildBottomNavigationBarItem(
+                iconPath: "assets/icons/user.svg",
                 label: "Profile",
+                index: 3,
+                isDarkTheme: isDarkTheme,
               ),
             ],
             backgroundColor: const Color(0xfff2f2f2),
-            selectedItemColor: Colors.black,
+            selectedItemColor: isDarkTheme ? Colors.white : Colors.black,
             onTap: _onItemTapped,
             currentIndex: _selectedItem,
             elevation: 0, // Remove shadow
@@ -135,6 +117,29 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
+    );
+  }
+
+  // Function to build BottomNavigationBarItem
+  BottomNavigationBarItem _buildBottomNavigationBarItem({
+    required String iconPath,
+    required String label,
+    required int index,
+    required bool isDarkTheme,
+  }) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        iconPath,
+        height: 30.0,
+        color: _selectedItem == index
+            ? isDarkTheme
+                ? const Color.fromARGB(255, 188, 232, 55)
+                : const Color.fromARGB(255, 188, 232, 55)
+            : isDarkTheme
+                ? Colors.white
+                : Colors.black,
+      ),
+      label: label,
     );
   }
 }

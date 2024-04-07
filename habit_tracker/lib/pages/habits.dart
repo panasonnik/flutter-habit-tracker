@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/app_model.dart';
 
 import 'package:habit_tracker/models/habits_category_model.dart';
 import 'package:habit_tracker/widgets/habit.dart';
+import 'package:provider/provider.dart';
 
 class HabitsPage extends StatefulWidget {
   const HabitsPage({super.key});
@@ -12,6 +14,7 @@ class HabitsPage extends StatefulWidget {
 
 class _HabitsPageState extends State<HabitsPage> {
   late List<HabitsCategoryModel> categories;
+
   int selectedCategoryIndex = 0;
   Map<int, List<bool>?> isHabitPressedMap = {};
 
@@ -54,7 +57,9 @@ class _HabitsPageState extends State<HabitsPage> {
                     border: Border.all(
                       color: selectedCategoryIndex == index
                           ? Colors.transparent // Selected category border color
-                          : Colors.black, // Non-selected category border color
+                          : Provider.of<AppModel>(context).darkTheme
+                              ? Colors.white
+                              : Colors.black,
                       width: 2.0,
                     ),
                     color: selectedCategoryIndex == index
@@ -66,7 +71,12 @@ class _HabitsPageState extends State<HabitsPage> {
                   alignment: Alignment.center,
                   child: Text(
                     categories[index].title,
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: selectedCategoryIndex == index
+                          ? Colors.black // Selected category border color
+                          : Provider.of<AppModel>(context).darkTheme
+                              ? Colors.white
+                              : Colors.black,
                       fontSize: 16.0,
                     ),
                   ),

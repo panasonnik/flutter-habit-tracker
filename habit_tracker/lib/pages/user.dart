@@ -71,7 +71,14 @@ class _UserPageState extends State<UserPage> {
             onPressed: () {
               _authenticate(context);
             },
-            child: const Text('Login'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color?>(
+                Provider.of<AppModel>(context).darkTheme
+                    ? Colors.white
+                    : Colors.transparent,
+              ),
+            ),
+            child: const Text('Login', style: TextStyle(color: Colors.black)),
           ),
           const SizedBox(
             height: 30.0,
@@ -86,9 +93,20 @@ class _UserPageState extends State<UserPage> {
           ),
           const Expanded(child: SizedBox()),
           ElevatedButton(
-              onPressed:
-                  Provider.of<AppModel>(context, listen: false).deleteHabits,
-              child: const Text("Delete all data"))
+            onPressed:
+                Provider.of<AppModel>(context, listen: false).deleteHabits,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color?>(
+                Provider.of<AppModel>(context).darkTheme
+                    ? Colors.white
+                    : Colors.transparent,
+              ),
+            ),
+            child: const Text(
+              "Delete all data",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
         ],
       ),
     );

@@ -4,9 +4,8 @@ import 'package:habit_tracker/widgets/app_bar.dart';
 import 'package:provider/provider.dart';
 //import 'package:habit_tracker/widgets/habit.dart';
 
-class NotebookPage extends StatelessWidget {
-  final TextEditingController _notesController = TextEditingController();
-  NotebookPage({super.key});
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +17,18 @@ class NotebookPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            "Write your notes:",
+            "Some info text, bla bla bla",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          TextFormField(
-            controller: _notesController,
-            maxLines: null,
-            keyboardType: TextInputType.multiline,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: "Enter your notes here...",
-            ),
-          ),
-          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              _returnNotes(context);
+              Navigator.pop(context);
             },
-            child: const Text("Save"),
+            child: const Text('Go Back'),
           ),
         ],
       ),
     );
-  }
-
-  void _returnNotes(BuildContext context) {
-    final String notes = _notesController.text;
-    Navigator.pop(context, notes);
   }
 }

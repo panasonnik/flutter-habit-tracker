@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/app_model.dart';
+import 'package:habit_tracker/pages/info.dart';
 import 'package:habit_tracker/pages/notebook.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,21 @@ import 'package:habit_tracker/pages/user.dart';
 void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => AppModel(),
-    child: const MyApp(),
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Montserrat',
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyApp(),
+        '/home': (context) => const HomePage(),
+        '/habits': (context) => const HabitsPage(),
+        '/todo': (context) => const ProgressPage(),
+        '/account': (context) => const UserPage(),
+        '/info': (context) => const InfoPage(),
+      },
+    ),
   ));
 }
 
@@ -29,22 +44,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int _selectedItem = 0;
 
   late TabController _controller;
-  late List<Widget> _pages;
 
   @override
   void initState() {
-    _pages = const [
-      HomePage(),
-      HabitsPage(),
-      ProgressPage(),
-      UserPage(),
-    ];
     super.initState();
-    _controller = TabController(vsync: this, length: _pages.length);
-
-    _controller.addListener(() {
-      _selectedItem = _controller.index;
-    });
+    _controller = TabController(vsync: this, length: 4);
   }
 
   @override
@@ -63,59 +67,52 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     bool isDarkTheme = Provider.of<AppModel>(context).darkTheme;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Montserrat',
-        brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+    return Scaffold(
+      appBar: const MyAppBar(),
+      body: TabBarView(
+        controller: _controller,
+        children: const [
+          HomePageNavigator(),
+          HabitsPageNavigator(),
+          ProgressPageNavigator(),
+          UserPageNavigator(),
+        ],
       ),
-      home: Scaffold(
-        appBar: const MyAppBar(),
-        body: Container(
-          alignment: Alignment.center,
-          child: TabBarView(
-            controller: _controller,
-            children: [
-              ..._pages,
-            ],
-          ),
-        ),
-        bottomNavigationBar: SizedBox(
-          height: 80.0,
-          child: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              _buildBottomNavigationBarItem(
-                iconPath: "assets/icons/house.svg",
-                label: "Home",
-                index: 0,
-                isDarkTheme: isDarkTheme,
-              ),
-              _buildBottomNavigationBarItem(
-                iconPath: "assets/icons/compass.svg",
-                label: "Habits",
-                index: 1,
-                isDarkTheme: isDarkTheme,
-              ),
-              _buildBottomNavigationBarItem(
-                iconPath: "assets/icons/bars-progress.svg",
-                label: "Progress",
-                index: 2,
-                isDarkTheme: isDarkTheme,
-              ),
-              _buildBottomNavigationBarItem(
-                iconPath: "assets/icons/user.svg",
-                label: "Profile",
-                index: 3,
-                isDarkTheme: isDarkTheme,
-              ),
-            ],
-            backgroundColor: const Color(0xfff2f2f2),
-            selectedItemColor: isDarkTheme ? Colors.white : Colors.black,
-            onTap: _onItemTapped,
-            currentIndex: _selectedItem,
-            elevation: 0, // Remove shadow
-            iconSize: 30.0,
-          ),
+      bottomNavigationBar: SizedBox(
+        height: 80.0,
+        child: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            _buildBottomNavigationBarItem(
+              iconPath: "assets/icons/house.svg",
+              label: "Home",
+              index: 0,
+              isDarkTheme: isDarkTheme,
+            ),
+            _buildBottomNavigationBarItem(
+              iconPath: "assets/icons/compass.svg",
+              label: "Habits",
+              index: 1,
+              isDarkTheme: isDarkTheme,
+            ),
+            _buildBottomNavigationBarItem(
+              iconPath: "assets/icons/bars-progress.svg",
+              label: "Progress",
+              index: 2,
+              isDarkTheme: isDarkTheme,
+            ),
+            _buildBottomNavigationBarItem(
+              iconPath: "assets/icons/user.svg",
+              label: "Profile",
+              index: 3,
+              isDarkTheme: isDarkTheme,
+            ),
+          ],
+          backgroundColor: const Color(0xfff2f2f2),
+          selectedItemColor: isDarkTheme ? Colors.white : Colors.black,
+          onTap: _onItemTapped,
+          currentIndex: _selectedItem,
+          elevation: 0, // Remove shadow
+          iconSize: 30.0,
         ),
       ),
     );
@@ -141,6 +138,66 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 : Colors.black,
       ),
       label: label,
+    );
+  }
+}
+
+class HomePageNavigator extends StatelessWidget {
+  const HomePageNavigator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        );
+      },
+    );
+  }
+}
+
+class HabitsPageNavigator extends StatelessWidget {
+  const HabitsPageNavigator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => const HabitsPage(),
+        );
+      },
+    );
+  }
+}
+
+class ProgressPageNavigator extends StatelessWidget {
+  const ProgressPageNavigator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => const ProgressPage(),
+        );
+      },
+    );
+  }
+}
+
+class UserPageNavigator extends StatelessWidget {
+  const UserPageNavigator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => const UserPage(),
+        );
+      },
     );
   }
 }

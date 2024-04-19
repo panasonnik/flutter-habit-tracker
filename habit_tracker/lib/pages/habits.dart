@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/app_model.dart';
 
 import 'package:habit_tracker/models/habits_category_model.dart';
+import 'package:habit_tracker/pages/home.dart';
+import 'package:habit_tracker/pages/info.dart';
 import 'package:habit_tracker/widgets/habit.dart';
 import 'package:provider/provider.dart';
 
@@ -100,6 +102,16 @@ class _HabitsPageState extends State<HabitsPage> {
               );
             },
           ),
+        ),
+        const SizedBox(height: 20.0),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InfoPage()),
+            );
+          },
+          child: Text("Learn more..."),
         ),
       ],
     );

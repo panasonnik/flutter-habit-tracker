@@ -3,22 +3,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/app_model.dart';
 import 'package:habit_tracker/models/habit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:habit_tracker/pages/habit_info.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:provider/provider.dart';
 
 class HabitWidget extends StatelessWidget {
-  const HabitWidget({
-    super.key,
-    required this.pathToHabit,
-    required this.isHabitPressedList,
-    this.index = 0,
-    this.action = "Add",
-  });
+  const HabitWidget(
+      {super.key,
+      required this.pathToHabit,
+      required this.isHabitPressedList,
+      this.index = 0,
+      this.action = "Add",
+      this.hasInfoBtn = false});
 
   final Habit pathToHabit;
   final List<bool> isHabitPressedList;
   final int index;
   final String action;
+  final bool hasInfoBtn;
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +81,18 @@ class HabitWidget extends StatelessWidget {
                           : Text(action,
                               style: const TextStyle(color: Colors.black)),
                     ),
+                    if (hasInfoBtn)
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HabitInfoPage(),
+                            ),
+                          );
+                        },
+                        child: const Text('See your progress'),
+                      ),
                   ],
                 ),
               ),

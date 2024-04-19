@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
           return HabitWidget(
             pathToHabit: appModel.habits[index],
             action: "Delete",
+            hasInfoBtn: true,
             isHabitPressedList: isHabitPressedList,
           );
         },

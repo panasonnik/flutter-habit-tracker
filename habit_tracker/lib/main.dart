@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/app_model.dart';
+import 'package:habit_tracker/pages/notebook.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/app_bar.dart';

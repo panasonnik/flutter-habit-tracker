@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/app_model.dart';
 import 'package:habit_tracker/pages/info.dart';
-import 'package:habit_tracker/pages/notebook.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/app_bar.dart';
@@ -72,10 +71,12 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _controller,
         children: const [
-          HomePageNavigator(),
-          HabitsPageNavigator(),
-          ProgressPageNavigator(),
-          UserPageNavigator(),
+          PageNavigator(
+            myPage: HomePage(),
+          ),
+          PageNavigator(myPage: HabitsPage()),
+          PageNavigator(myPage: ProgressPage()),
+          PageNavigator(myPage: UserPage()),
         ],
       ),
       bottomNavigationBar: SizedBox(
@@ -142,60 +143,16 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 }
 
-class HomePageNavigator extends StatelessWidget {
-  const HomePageNavigator({super.key});
+class PageNavigator extends StatelessWidget {
+  const PageNavigator({super.key, required this.myPage});
+  final Widget myPage;
 
   @override
   Widget build(BuildContext context) {
     return Navigator(
       onGenerateRoute: (routeSettings) {
         return MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        );
-      },
-    );
-  }
-}
-
-class HabitsPageNavigator extends StatelessWidget {
-  const HabitsPageNavigator({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-          builder: (context) => const HabitsPage(),
-        );
-      },
-    );
-  }
-}
-
-class ProgressPageNavigator extends StatelessWidget {
-  const ProgressPageNavigator({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-          builder: (context) => const ProgressPage(),
-        );
-      },
-    );
-  }
-}
-
-class UserPageNavigator extends StatelessWidget {
-  const UserPageNavigator({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-          builder: (context) => const UserPage(),
+          builder: (context) => myPage,
         );
       },
     );

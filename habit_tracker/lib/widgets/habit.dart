@@ -87,11 +87,12 @@ class HabitWidget extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HabitInfoPage(),
+                              builder: (context) =>
+                                  HabitInfoPage(habit: pathToHabit),
                             ),
                           );
                         },
-                        child: const Text('See your progress'),
+                        child: const Text('See habit info'),
                       ),
                   ],
                 ),

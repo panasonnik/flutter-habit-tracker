@@ -3,7 +3,7 @@ import 'package:habit_tracker/app_model.dart';
 import 'package:provider/provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
+  const MyAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -26,7 +26,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Transform.scale(
-                scale: 0.8, // Adjusted scale to make the switch smaller
+                scale: 0.8,
                 child: Switch(
                   value: appModel.darkTheme,
                   onChanged: (value) {

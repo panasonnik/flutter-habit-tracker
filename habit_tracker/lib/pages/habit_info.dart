@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/widgets/app_bar.dart';
+import 'package:habit_tracker/models/habit.dart';
 import 'package:habit_tracker/app_model.dart';
 import 'package:provider/provider.dart';
-//import 'package:habit_tracker/widgets/habit.dart';
 
 class HabitInfoPage extends StatelessWidget {
-  const HabitInfoPage({super.key});
-
+  const HabitInfoPage({super.key, required this.habit});
+  final Habit habit;
   @override
   Widget build(BuildContext context) {
     bool isDarkTheme = Provider.of<AppModel>(context).darkTheme;
@@ -18,10 +17,25 @@ class HabitInfoPage extends StatelessWidget {
         brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       ),
       home: Scaffold(
-        appBar: const MyAppBar(),
         body: Container(
           alignment: Alignment.center,
-          child: const Text("Habit info page..."),
+          child: Column(
+            children: [
+              const Text("See info: ", style: TextStyle(fontSize: 20.0)),
+              const SizedBox(height: 30.0),
+              Text(habit.name,
+                  style: const TextStyle(
+                      fontSize: 30.0, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20.0),
+              Text(habit.description),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Back"))
+            ],
+          ),
         ),
       ),
     );
